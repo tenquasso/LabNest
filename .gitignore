@@ -8,7 +8,9 @@ node_modules/
 config.local.php
 
 # uploads & cache
-uploads/
+uploads/*
+!uploads/.htaccess
+!uploads/.gitkeep
 *.log
 
 # OS generated
