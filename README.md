@@ -28,7 +28,7 @@ A modern, beautiful, and secure file management system for schools, labs, and or
 2. **Install dependencies** (if any, e.g. composer, npm)
 3. **Setup your database**
    - Import `database.sql` to your MySQL/MariaDB server
-   - Buat user admin secara manual setelah import database (gunakan `user.php` jika ingin membuat user via script)
+   - Create an admin user manually after importing the database (you can use `user.php` to create an admin user via script)
 4. **Configure your environment**
    - Copy `config.php` and fill in your DB credentials
    - Or use `.env` for better security
@@ -84,7 +84,7 @@ MIT License © 2025 SOFTWARE ENGINEERING
 ## ⚙️ Konfigurasi Penting Sebelum Produksi
 
 ### 1. Konfigurasi Database
-- Edit file `config.php` dan isi dengan kredensial database Anda:
+- Edit file `config.php` and fill in your DB credentials:
   ```php
   define('DB_HOST', 'localhost');
   define('DB_USER', 'your_db_user');
@@ -94,31 +94,31 @@ MIT License © 2025 SOFTWARE ENGINEERING
 - **Jangan commit kredensial asli ke repo publik!**
 
 ### 2. Import Database
-- Import file `database.sql` ke MySQL/MariaDB Anda.
-- Setelah import, **buat user admin secara manual** sesuai kebutuhan produksi. Anda bisa menggunakan script `user.php` untuk membuat user admin baru.
+- Import file `database.sql` to your MySQL/MariaDB server.
+- After import, **create an admin user manually** as needed for production. You can use the `user.php` script to create a new admin user.
 
 ### 3. Konfigurasi Upload File Besar
 Secara default, PHP membatasi upload file maksimal 2MB. Untuk upload file besar:
-- Edit file `php.ini` (lihat lokasi dengan `php --ini`):
+- Edit your `php.ini` file (find the location with `php --ini`):
   ```ini
   upload_max_filesize = 1G
   post_max_size = 1G
   max_file_uploads = 50
   ```
-- Setelah mengubah, **restart web server/PHP** (misal: `sudo systemctl restart httpd` atau `php-fpm`).
-- Pastikan permission folder `uploads/` bisa ditulis oleh web server.
+- After making changes, **restart your web server/PHP** (e.g., `sudo systemctl restart httpd` or `php-fpm`).
+- Make sure the `uploads/` folder is writable by the web server.
 
 ### 4. Keamanan Produksi
-- Pastikan `.gitignore` sudah mengecualikan file sensitif (`uploads/`, `.env`, `config.local.php`, dsb).
-- Gunakan HTTPS di server produksi.
-- Jangan gunakan user/password default di database.
+- Make sure `.gitignore` excludes sensitive files (`uploads/`, `.env`, `config.local.php`, etc).
+- Use HTTPS in production.
+- Do not use default user/password for the database.
 
 ## 📦 Dependensi Frontend
 - [Font Awesome 6](https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css) (CDN)
 - [Google Fonts: Inter](https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap) (CDN)
 - [Bootstrap 5 JS Bundle](https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js) (CDN)
 
-## 📝 Catatan Tambahan
-- Untuk upload file sangat besar, pastikan koneksi stabil dan server tidak memutus request sebelum selesai.
-- Semua file upload akan disimpan di folder `uploads/` dengan struktur tahun/bulan/kategori.
-- Log aktivitas user tersimpan di tabel `activity_logs`. 
+## �� Catatan Tambahan
+- For very large file uploads, ensure a stable connection and that the server does not terminate the request before completion.
+- All uploaded files will be stored in the `uploads/` folder with a year/month/category structure.
+- User activity logs are stored in the `activity_logs` table. 
