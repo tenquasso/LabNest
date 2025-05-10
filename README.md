@@ -97,8 +97,8 @@ MIT License © 2025 SOFTWARE ENGINEERING
 - Import file `database.sql` to your MySQL/MariaDB server.
 - After import, **create an admin user manually** as needed for production. You can use the `user.php` script to create a new admin user.
 
-### 3. Konfigurasi Upload File Besar
-Secara default, PHP membatasi upload file maksimal 2MB. Untuk upload file besar:
+### 3. Large File Upload Configuration
+By default, PHP limits file uploads to a maximum of 2MB. To allow large file uploads:
 - Edit your `php.ini` file (find the location with `php --ini`):
   ```ini
   upload_max_filesize = 1G
@@ -108,7 +108,7 @@ Secara default, PHP membatasi upload file maksimal 2MB. Untuk upload file besar:
 - After making changes, **restart your web server/PHP** (e.g., `sudo systemctl restart httpd` or `php-fpm`).
 - Make sure the `uploads/` folder is writable by the web server.
 
-### 4. Keamanan Produksi
+### 4. Production Security
 - Make sure `.gitignore` excludes sensitive files (`uploads/`, `.env`, `config.local.php`, etc).
 - Use HTTPS in production.
 - Do not use default user/password for the database.
@@ -118,7 +118,7 @@ Secara default, PHP membatasi upload file maksimal 2MB. Untuk upload file besar:
 - [Google Fonts: Inter](https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap) (CDN)
 - [Bootstrap 5 JS Bundle](https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js) (CDN)
 
-## �� Catatan Tambahan
+## ⚠️ Catatan Tambahan
 - For very large file uploads, ensure a stable connection and that the server does not terminate the request before completion.
 - All uploaded files will be stored in the `uploads/` folder with a year/month/category structure.
 - User activity logs are stored in the `activity_logs` table. 
