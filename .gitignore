@@ -1,0 +1,22 @@
+# dependencies
+/vendor/
+node_modules/
+
+# environment & config
+.env
+.env.*
+config.local.php
+
+# uploads & cache
+uploads/
+*.log
+
+# OS generated
+.DS_Store
+Thumbs.db
+
+# IDE/editor
+.idea/
+.vscode/
+*.sublime-workspace
+*.sublime-project 
