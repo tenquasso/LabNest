@@ -73,17 +73,17 @@ Pull requests are welcome! For major changes, please open an issue first.
 
 MIT License © 2025 SOFTWARE ENGINEERING 
 
-## 🛠️ Prasyarat & Kebutuhan Sistem
+## 🛠️ Prerequisites
 
-- **PHP 7.4+** (disarankan PHP 8+)
+- **PHP 7.4+** (PHP 8+ better)
 - **MySQL/MariaDB**
 - **Ekstensi PHP:** PDO, PDO_MySQL, fileinfo
-- **Web server:** Apache, Nginx, atau built-in PHP server
-- **Browser modern** (Chrome, Firefox, Edge, dsb)
+- **Web server:** Apache, Nginx, or built-in PHP server
+- **Browser modern** (Chrome, Firefox, Edge, etc)
 
-## ⚙️ Konfigurasi Penting Sebelum Produksi
+## ⚙️ Important Configuration Before Production
 
-### 1. Konfigurasi Database
+### 1. Database Conf
 - Edit file `config.php` and fill in your DB credentials:
   ```php
   define('DB_HOST', 'localhost');
@@ -91,7 +91,6 @@ MIT License © 2025 SOFTWARE ENGINEERING
   define('DB_PASS', 'your_db_password');
   define('DB_NAME', 'file_manager');
   ```
-- **Jangan commit kredensial asli ke repo publik!**
 
 ### 2. Import Database
 - Import file `database.sql` to your MySQL/MariaDB server.
@@ -113,12 +112,12 @@ By default, PHP limits file uploads to a maximum of 2MB. To allow large file upl
 - Use HTTPS in production.
 - Do not use default user/password for the database.
 
-## 📦 Dependensi Frontend
+## 📦 Frontend Dependencies
 - [Font Awesome 6](https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css) (CDN)
 - [Google Fonts: Inter](https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap) (CDN)
 - [Bootstrap 5 JS Bundle](https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js) (CDN)
 
-## ⚠️ Catatan Tambahan
+## ⚠️ Notes
 - For very large file uploads, ensure a stable connection and that the server does not terminate the request before completion.
 - All uploaded files will be stored in the `uploads/` folder with a year/month/category structure.
 - User activity logs are stored in the `activity_logs` table. 
