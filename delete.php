@@ -1,47 +1,44 @@
 <?php
 require_once 'config.php';
 
+// Hanya admin yang boleh menghapus file
 if (!isLoggedIn() || $_SESSION['role'] !== 'admin') {
     header('Location: index.php');
     exit();
 }
 
-$response = ['success' => false, 'message' => ''];
+// Ambil parameter file dan dir dari GET
+if (isset($_GET['file']) && isset($_GET['dir'])) {
+    $file = $_GET['file'];
+    $dir = $_GET['dir'];
+    $base = 'uploads';
 
-if (isset($_GET['id'])) {
-    $file_id = $_GET['id'];
-    
-    // get file info from database
-    $stmt = $pdo->prepare("SELECT * FROM files WHERE id = ?");
-    $stmt->execute([$file_id]);
-    $file = $stmt->fetch();
+    // Validasi path agar tidak keluar dari uploads
+    $realBase = realpath($base);
+    $realDir = realpath($dir);
+    if ($realDir === false || strpos($realDir, $realBase) !== 0) {
+        // Path tidak valid
+        header('Location: explorer.php?dir=' . urlencode($base));
+        exit();
+    }
 
-    if ($file) {
-        // delete physical file
-        if (file_exists($file['file_path'])) {
-            unlink($file['file_path']);
-        }
-
-        // delete record from database
-        $stmt = $pdo->prepare("DELETE FROM files WHERE id = ?");
-        $stmt->execute([$file_id]);
-
-        // log delete activity
+    $filePath = $realDir . DIRECTORY_SEPARATOR . $file;
+    // Cek file benar-benar ada dan di dalam uploads
+    if (file_exists($filePath) && strpos(realpath($filePath), $realBase) === 0) {
+        unlink($filePath);
+        // (Opsional) log aktivitas hapus file
         $stmt = $pdo->prepare("INSERT INTO activity_logs (user_id, action, details, ip_address) VALUES (?, 'delete', ?, ?)");
         $stmt->execute([
             $_SESSION['user_id'],
-            "File deleted: " . $file['original_name'],
+            "File deleted: " . $file,
             $_SERVER['REMOTE_ADDR']
         ]);
-
-        $response['success'] = true;
-        $response['message'] = "File berhasil dihapus.";
-    } else {
-        $response['message'] = "File tidak ditemukan.";
     }
+    // Redirect kembali ke explorer dengan direktori yang sama
+    header('Location: explorer.php?dir=' . urlencode($dir));
+    exit();
 } else {
-    $response['message'] = "ID file tidak valid.";
-}
-
-header('Location: index.php');
-exit(); 
+    // Jika parameter tidak lengkap, kembali ke explorer root
+    header('Location: explorer.php?dir=uploads');
+    exit();
+} 

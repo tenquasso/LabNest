@@ -12,6 +12,9 @@ if (!is_dir($dir) || strpos(realpath($dir), realpath($base)) !== 0) {
     $dir = $base;
 }
 
+// Daftar file yang ingin disembunyikan dari explorer
+$hiddenFiles = ['.gitkeep', '.htaccess'];
+
 // build breadcrumb
 function renderBreadcrumb($dir, $base) {
     $parts = explode('/', trim(str_replace($base, '', $dir), '/'));
@@ -270,13 +273,22 @@ function formatFileSize($bytes) {
                 </div>
             <?php endforeach; ?>
             <?php foreach ($files as $file): ?>
+                <?php if (in_array($file, $hiddenFiles)) continue; ?>
                 <div class="explorer-item">
                     <span class="explorer-icon"><i class="fas fa-file"></i></span>
                     <span class="explorer-name"><?php echo htmlspecialchars($file); ?></span>
                     <span class="explorer-size"><?php echo formatFileSize(filesize($dir . '/' . $file)); ?></span>
                     <div class="explorer-actions">
-                        <a href="download.php?path=<?php echo urlencode(str_replace($base . '/', '', $dir . '/' . $file)); ?>" title="Download"><i class="fas fa-download"></i></a>
-                        <!-- tombol delete bisa ditambah di sini jika ingin -->
+                        <a href="download.php?path=<?php echo urlencode(str_replace($base . '/', '', $dir . '/' . $file)); ?>" title="download">
+                            <i class="fas fa-download"></i>
+                            <span class="action-label">download</span>
+                        </a>
+                        <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin'): ?>
+                            <a href="delete.php?file=<?php echo urlencode($file); ?>&dir=<?php echo urlencode($dir); ?>" class="delete" title="delete" onclick="return confirm('are you sure you want to delete this file?');">
+                                <i class="fas fa-trash"></i>
+                                <span class="action-label">delete</span>
+                            </a>
+                        <?php endif; ?>
                     </div>
                 </div>
             <?php endforeach; ?>

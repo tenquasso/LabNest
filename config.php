@@ -3,7 +3,7 @@
 define('DB_HOST', 'localhost');
 // Ganti dengan user dan password database Anda sebelum digunakan di produksi!
 define('DB_USER', 'root');
-define('DB_PASS', 'root');
+define('DB_PASS', '');
 define('DB_NAME', 'file_manager');
 
 // application configuration

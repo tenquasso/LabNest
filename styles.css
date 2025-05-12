@@ -153,4 +153,38 @@ body {
     border: 1px solid rgba(255,255,255,0.10);
     box-shadow: 0 2px 8px 0 rgba(0,0,0,0.06);
     border-radius: 8px;
+}
+
+.explorer-actions .action-label {
+  margin-left: 0.3em;
+  font-size: 1em;
+}
+@media (max-width: 600px) {
+  .explorer-actions .action-label {
+    display: none; /* Sembunyikan label di mobile, hanya ikon yang tampil */
+  }
+  .explorer-actions a, .explorer-actions button {
+    font-size: 1.3rem;
+    padding: 0.2em;
+  }
+  .explorer-item {
+    flex-wrap: wrap;
+    font-size: 0.95rem;
+  }
+}
+
+.explorer-item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1rem;
+  min-width: 0;
+}
+.explorer-name {
+  flex: 1 1 0%;
+  min-width: 0;
+  word-break: break-all;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 } 
